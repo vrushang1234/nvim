@@ -10,7 +10,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "pyright",
-          "tsserver",
+          "ts_ls",
           "lua_ls",
           "clangd",
           "rust_analyzer",
@@ -20,19 +20,36 @@ return {
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- Setup each server
       local servers = {
         "pyright",
-        "tsserver",
+        "ts_ls",
         "lua_ls",
         "clangd",
         "rust_analyzer",
       }
 
       for _, server in ipairs(servers) do
-        lspconfig[server].setup({
+        local opts = {
           capabilities = capabilities,
-        })
+        }
+
+        -- 💡 Special config for Lua language server
+        if server == "lua_ls" then
+          opts.settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+              },
+              telemetry = { enable = false },
+            },
+          }
+        end
+
+        lspconfig[server].setup(opts)
       end
     end,
   },

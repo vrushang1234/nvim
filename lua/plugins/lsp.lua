@@ -1,13 +1,11 @@
 return {
   {
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
     config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
+        require("mason").setup()
+        require("mason-lspconfig").setup({
         ensure_installed = {
           "pyright",
           "ts_ls",

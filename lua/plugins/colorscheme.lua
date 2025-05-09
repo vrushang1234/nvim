@@ -4,7 +4,7 @@ return {
   priority = 1000, -- Make sure it loads first
   config = function()
     require("catppuccin").setup({
-      transparent_background = true,
+      flavour = "mocha",
       integrations = {
         treesitter = true,
         native_lsp = {
@@ -19,14 +19,6 @@ return {
     })
     vim.cmd.colorscheme("catppuccin")
 
-    -- Optional: extra transparent highlights
-    vim.cmd([[
-      highlight Normal guibg=NONE ctermbg=NONE
-      highlight NormalNC guibg=NONE ctermbg=NONE
-      highlight Pmenu guibg=NONE ctermbg=NONE
-      highlight SignColumn guibg=NONE ctermbg=NONE
-      highlight VertSplit guibg=NONE ctermbg=NONE
-    ]])
   end,
 }
 

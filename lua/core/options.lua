@@ -6,4 +6,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
-
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.mouse = "a"

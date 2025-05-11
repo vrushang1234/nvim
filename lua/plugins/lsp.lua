@@ -1,26 +1,41 @@
 return {
   {
     "mason-org/mason.nvim",
-    "mason-org/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
+    build = ":MasonUpdate",
     config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup({
+      require("mason").setup()
+    end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    config = function()
+      require("mason-lspconfig").setup({
         ensure_installed = {
           "pyright",
-          "ts_ls",
+          "ts_ls", -- ✅ use "ts_ls" here even if "ts_ls" is internally mapped
           "lua_ls",
           "clangd",
           "rust_analyzer",
         },
+        automatic_installation = false, -- optional but safe
+        automatic_enable = false,       -- ✅ prevents the `.enable()` error
       })
-
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+    },
+    config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local servers = {
         "pyright",
-        "ts_ls",
+        "ts_ls", -- ✅ match the mason alias
         "lua_ls",
         "clangd",
         "rust_analyzer",
@@ -31,7 +46,6 @@ return {
           capabilities = capabilities,
         }
 
-        -- 💡 Special config for Lua language server
         if server == "lua_ls" then
           opts.settings = {
             Lua = {

@@ -1,11 +1,29 @@
 return {
-  "sainnhe/everforest",
-  name = "everforest",
-  priority = 1000,
-  config = function()
-    vim.g.everforest_background = "hard"
+	"catppuccin/nvim",
+	name = "catppuccin",
+	priority = 1000, -- Make sure it loads first
+	config = function()
+		require("catppuccin").setup({
+            transparent_background = true,
 
-    vim.cmd.colorscheme("everforest")
-  end,
+			styles = {
+				sidebars = "transparent",
+				floats = "transparent",
+			},
+
+			flavour = "mocha",
+			integrations = {
+				treesitter = true,
+				native_lsp = {
+					enabled = true,
+				},
+				telescope = true,
+				which_key = true,
+				cmp = true,
+				gitsigns = true,
+				nvimtree = true,
+			},
+		})
+		vim.cmd.colorscheme("catppuccin")
+	end,
 }
-

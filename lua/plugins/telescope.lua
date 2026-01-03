@@ -13,9 +13,29 @@ return {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
-        winblend = 10,
+        winblend = 0,
       },
     })
+   local hl = vim.api.nvim_set_hl
+    local groups = {
+      "TelescopeNormal",
+      "TelescopeBorder",
+      "TelescopePromptNormal",
+      "TelescopePromptBorder",
+      "TelescopeResultsNormal",
+      "TelescopeResultsBorder",
+      "TelescopePreviewNormal",
+      "TelescopePreviewBorder",
+      "TelescopeTitle",
+      "TelescopePromptTitle",
+      "TelescopeResultsTitle",
+      "TelescopePreviewTitle",
+    }
+
+    for _, group in ipairs(groups) do
+      hl(0, group, { bg = "none" })
+    end
   end,
 }
+
 
